@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Question Answering</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        #answer-section {
+            background-color: #f2f2f2;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        #answer-section h2 {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #answer-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+        #uploaded-image {
+            max-width: 100%;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Image/Video Question Answering</h1>
+        <form method="POST" enctype="multipart/form-data" action="/">
+            <div class="form-group">
+                <label for="file">Upload Image/Video</label>
+                <input type="file" class="form-control-file" id="file" name="file" accept=".jpg,.jpeg,.png,.mp4" required>
+            </div>
+            <div class="form-group">
+                <label for="question">Enter Question</label>
+                <input type="text" class="form-control" id="question" name="question" placeholder="Ask your question here" required>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Get Answer</button>
+            </div>
+        </form>
+        <div id="answer-section" class="mt-4">
+            {% if answers %}
+            <h2>Answers:</h2>
+            <ul>
+                {% for time_stamp, answer in answers.items() %}
+                <li>{{ time_stamp }}: {{ answer }}</li>
+                {% endfor %}
+            </ul>
+            {% elif image_answer %}
+            <h2>Answer:</h2>
+            <p>{{ image_answer }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
